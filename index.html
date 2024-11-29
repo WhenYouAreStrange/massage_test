@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на приём</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Запись на массаж</h1>
+    <form id="appointment-form">
+        <label>Ваше имя:</label>
+        <input type="text" id="name" required><br><br>
+        <label>Телефон:</label>
+        <input type="text" id="phone" required><br><br>
+        <label>Дата:</label>
+        <input type="date" id="date" required><br><br>
+        <label>Тип массажа:</label>
+        <select id="massage-type">
+            <option value="классический">Классический</option>
+            <option value="терапевтический">Терапевтический</option>
+            <option value="спортивный">Спортивный</option>
+        </select><br><br>
+        <button type="button" onclick="submitForm()">Записаться</button>
+    </form>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function submitForm() {
+            const data = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                date: document.getElementById('date').value,
+                massageType: document.getElementById('massage-type').value,
+            };
+            tg.sendData(JSON.stringify(data)); // Отправка данных обратно в бота
+        }
+    </script>
+</body>
+</html>
