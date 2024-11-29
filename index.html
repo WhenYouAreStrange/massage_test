@@ -29,18 +29,33 @@
     </form>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+    const tg = window.Telegram.WebApp;
 
-        function submitForm() {
-            const data = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                date: document.getElementById('date').value,
-                massageType: document.getElementById('massage-type').value,
-            };
-            tg.sendData(JSON.stringify(data)); // Отправка данных обратно в бота
-        }
-    </script>
+    function submitForm() {
+        const data = {
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            date: document.getElementById('date').value,
+            massageType: document.getElementById('massage-type').value,
+        };
+
+        // Отправляем данные на сервер Flask
+        fetch('http://127.0.0.1:8081/запись', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Результат отправки:', result);
+            tg.close();  // Закрываем Web App после успешной отправки
+        })
+        .catch(error => {
+            console.error('Ошибка при отправке:', error);
+        });
+    }
+</script>
 </body>
 </html>
