@@ -40,13 +40,13 @@
         };
 
         // Отправляем данные на сервер Flask
-        fetch('https://f782-185-100-102-73.ngrok-free.app/', {
+        fetch('https://f782-185-100-102-73.ngrok-free.app/запись', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-        })
+        });
         .then(response => response.json())
         .then(result => {
             console.log('Результат отправки:', result);
