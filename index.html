@@ -29,9 +29,9 @@
     </form>
 
     <script>
-    const tg = window.Telegram.WebApp;
-
     function submitForm() {
+        const tg = window.Telegram.WebApp;
+
         const data = {
             name: document.getElementById('name').value,
             phone: document.getElementById('phone').value,
@@ -39,14 +39,14 @@
             massageType: document.getElementById('massage-type').value,
         };
 
-        // Отправляем данные на сервер Flask
-        fetch('https://5f41-185-100-102-73.ngrok-free.app//запись', {
+        // Отправляем данные на сервер Flask через URL от ngrok
+        fetch('https://5f41-185-100-102-73.ngrok-free.app/запись', {  // Укажите URL от ngrok
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-        });
+        })
         .then(response => response.json())
         .then(result => {
             console.log('Результат отправки:', result);
